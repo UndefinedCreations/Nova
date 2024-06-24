@@ -1,10 +1,9 @@
-package com.undefined.runServer
+package com.undefined.runServer.lib
 
 import com.google.gson.JsonParser
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URI
-import java.net.URL
 import java.util.concurrent.CompletableFuture
 
 object DownloadLib {
