@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.undefined"
-version = "0.0.1"
+version = "0.0.2"
 
 repositories {
     mavenCentral()
@@ -20,7 +20,7 @@ dependencies {
 gradlePlugin {
 
     website.set("https://discord.gg/NtWa9e3vv3")
-    vcsUrl.set("https://github.com/UndefinedCreation/UndefinedRemapper")
+    vcsUrl.set("https://github.com/UndefinedCreation/UndefinedRunServer")
 
     plugins {
 
@@ -39,5 +39,7 @@ tasks.test {
     useJUnitPlatform()
 }
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
 }

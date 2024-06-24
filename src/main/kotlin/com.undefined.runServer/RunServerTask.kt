@@ -39,10 +39,6 @@ abstract class RunServerTask: DefaultTask() {
 
         val mcV = mcVersion.get()
 
-        val latestBuild = serverType.get().getLatestBuild(mcV)
-
-        serverType.get().download(serverFolderFile, latestBuild, mcV)
-
     }
 
 }

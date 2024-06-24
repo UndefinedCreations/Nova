@@ -1,9 +1,8 @@
 package com.undefined.runServer
 
-import com.google.gson.JsonParser
 import java.io.File
-import java.io.FileOutputStream
-import java.net.URI
+import java.util.concurrent.CompletableFuture
+
 
 enum class ServerType(val URL_BUILDVERSION: String, val URL_DOWNLOAD: String) {
     SPIGOT("", ""),
@@ -17,24 +16,15 @@ enum class ServerType(val URL_BUILDVERSION: String, val URL_DOWNLOAD: String) {
     FOLIA("", "")
 }
 
-fun ServerType.getLatestBuild(mcVersion: String): String {
-    val request = URI(URL_BUILDVERSION + mcVersion)
-    val jsonText = request.toURL().readText()
-    val json = JsonParser.parseString(jsonText).asJsonObject
-    val array = json.getAsJsonArray("builds")
-    return array.get(array.size() - 1).asString
-}
-
-fun ServerType.download(folder: File, latestBuild: String, mcVersion: String) {
-
-    val request = URI(URL_DOWNLOAD.replace("mcVersion", mcVersion).replace("newestBuild", latestBuild))
-    val file = File(folder, "$name-$mcVersion-$latestBuild.jar")
-    if (!file.exists()) {
-        request.toURL().openStream().use { inputStream ->
-            FileOutputStream(file).use { outStream ->
-                inputStream.copyTo(outStream)
-            }
-        }
+fun ServerType.downloadJar(mcVersion: String, folder: File): CompletableFuture<DownloadResult> =
+    when(this) {
+        ServerType.SPIGOT -> DownloadLib.downloadSpigot(folder, mcVersion)
+        ServerType.CRAFTBUKKIT -> DownloadLib.downloadBukkit(folder, mcVersion)
+        ServerType.PAPERMC -> DownloadLib.downloadPaper(folder, mcVersion)
+        ServerType.PUFFERFISH -> DownloadLib.downloadPufferFish(folder, mcVersion)
+        ServerType.PURPUR -> DownloadLib.downloadPurper(folder, mcVersion)
+        ServerType.BUNGEECORD -> DownloadLib.downloadBungeecord(folder, mcVersion)
+        ServerType.WATERFALL -> DownloadLib.downloadWaterfall(folder, mcVersion)
+        ServerType.VELOCITY -> DownloadLib.downloadVelocity(folder, mcVersion)
+        ServerType.FOLIA -> DownloadLib.downloadFolia(folder, mcVersion)
     }
-
-}
