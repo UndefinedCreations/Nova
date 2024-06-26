@@ -1,6 +1,5 @@
 package com.undefined.runServer
 
-import com.undefined.runServer.lib.DownloadLib
 import com.undefined.runServer.lib.DownloadResult
 import com.undefined.runServer.lib.DownloadResultType
 import com.undefined.runServer.lib.TaskLib
@@ -18,7 +17,6 @@ abstract class RunServerTask: AbstractServer() {
 
     private var port: Int = 25565
 
-
     fun mcVersion(string: String) {mcVersion = string}
     fun allowedRam(string: String) {allowedRam = string}
     fun port(port: Int) {this.port = port}
@@ -31,9 +29,7 @@ abstract class RunServerTask: AbstractServer() {
         }
 
         setup()
-
         createFolders()
-
         loadPlugin()
 
         logger.info("Downloading latest jar of type ${serverType.name.lowercase()} version $mcVersion...")
@@ -42,9 +38,7 @@ abstract class RunServerTask: AbstractServer() {
         if (down.downloadResultType == DownloadResultType.SUCCESS) {
 
             setClass(down.jarFile!!)
-
             setJvmArgs(listOf("--nogui", "-Xmx$allowedRam"))
-
             super.exec()
 
         }

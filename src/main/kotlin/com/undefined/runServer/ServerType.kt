@@ -5,17 +5,16 @@ import com.undefined.runServer.lib.DownloadResult
 import java.io.File
 import java.util.concurrent.CompletableFuture
 
-
-enum class ServerType(val URL_BUILDVERSION: String, val URL_DOWNLOAD: String) {
-    SPIGOT("", ""),
-    CRAFTBUKKIT("", ""),
-    PAPERMC("https://api.papermc.io/v2/projects/paper/versions/", "https://api.papermc.io/v2/projects/paper/versions/mcVersion/builds/newestBuild/downloads/paper-mcVersion-newestBuild.jar"),
-    PUFFERFISH("as", ""),
-    PURPUR("", ""),
-    BUNGEECORD("", ""),
-    WATERFALL("", ""),
-    VELOCITY("", ""),
-    FOLIA("", "")
+enum class ServerType {
+    SPIGOT,
+    CRAFTBUKKIT,
+    PAPERMC,
+    PUFFERFISH,
+    PURPUR,
+    BUNGEECORD,
+    WATERFALL,
+    VELOCITY,
+    FOLIA
 }
 
 fun ServerType.downloadJar(mcVersion: String, folder: File): DownloadResult =

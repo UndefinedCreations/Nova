@@ -12,7 +12,6 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.0")
     api(kotlin("stdlib"))
     implementation("com.google.code.gson:gson:2.11.0")
 }
@@ -23,7 +22,6 @@ gradlePlugin {
     vcsUrl.set("https://github.com/UndefinedCreation/UndefinedRunServer")
 
     plugins {
-
         create("runServer") {
             id = "com.undefined.runServer"
             displayName = "Undefined run server"
