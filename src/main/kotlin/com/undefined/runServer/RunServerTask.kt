@@ -38,9 +38,14 @@ abstract class RunServerTask: AbstractServer() {
         if (down.downloadResultType == DownloadResultType.SUCCESS) {
 
             setClass(down.jarFile!!)
-            setJvmArgs(listOf("--nogui", "-Xmx$allowedRam"))
-            super.exec()
 
+            args("--nogui")
+
+            setJvmArgs(listOf("-Xmx$allowedRam"))
+
+            super.exec()
+        } else {
+            logger.error("Download failed. Makes sure your version does exists.")
         }
     }
 
