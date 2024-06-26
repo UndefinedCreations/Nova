@@ -20,9 +20,9 @@ object DownloadLib {
         val arrayBuildJson = JsonParser.parseString(url.toURL().readText()).asJsonObject.getAsJsonArray("builds")
         val latestBuild = arrayBuildJson.get(arrayBuildJson.size() - 1).asInt
 
-        return downloadFile(folder, "$stringProjectName-$mcVersion-$latestBuild.jar", "$url/builds/$latestBuild/downloads/$stringProjectName-$mcVersion-$latestBuild.jar")
+        return downloadFile(folder, "$url/builds/$latestBuild/downloads/$stringProjectName-$mcVersion-$latestBuild.jar")
     }
-    private fun downloadFromGetBukkit(folder: File, mcVersion: String, stringProjectName: String): CompletableFuture<DownloadResult> = downloadFile(folder, "$stringProjectName-$mcVersion.jar", "$GETBUKKIT_REPO/$stringProjectName/$stringProjectName-$mcVersion.jar")
+    private fun downloadFromGetBukkit(folder: File, mcVersion: String, stringProjectName: String): CompletableFuture<DownloadResult> = downloadFile(folder, "$GETBUKKIT_REPO/$stringProjectName/$stringProjectName-$mcVersion.jar")
 
     fun downloadPaper(folder: File, mcVersion: String) = downloadFromPaperMC(folder, mcVersion, "paper")
     fun downloadWaterfall(folder: File, mcVersion: String) = downloadFromPaperMC(folder, mcVersion, "waterfall")
@@ -30,8 +30,8 @@ object DownloadLib {
     fun downloadFolia(folder: File, mcVersion: String) = downloadFromPaperMC(folder, mcVersion, "folia")
     fun downloadSpigot(folder: File, mcVersion: String) = downloadFromGetBukkit(folder, mcVersion, "spigot")
     fun downloadBukkit(folder: File, mcVersion: String) = downloadFromGetBukkit(folder, mcVersion, "craftbukkit")
-    fun downloadBungeecord(folder: File, mcVersion: String): CompletableFuture<DownloadResult> = downloadFile(folder, "Bungeecord.jar", BUNGEECORD_REPO)
-    fun downloadPurper(folder: File, mcVersion: String): CompletableFuture<DownloadResult> = downloadFile(folder, "Purper-$mcVersion.jar", "$PURPER_REPO/$mcVersion/latest/download")
+    fun downloadBungeecord(folder: File, mcVersion: String): CompletableFuture<DownloadResult> = downloadFile(folder, BUNGEECORD_REPO)
+    fun downloadPurper(folder: File, mcVersion: String): CompletableFuture<DownloadResult> = downloadFile(folder, "$PURPER_REPO/$mcVersion/latest/download")
     fun downloadPufferFish(folder: File, mcVersion: String): CompletableFuture<DownloadResult> {
 
         val mainURL = URI("$PUFFERFISH_REPO/Pufferfish-$mcVersion/lastSuccessfulBuild")
@@ -39,18 +39,17 @@ object DownloadLib {
         val buildURL = URI("$mainURL/api/json")
         val path = JsonParser.parseString(buildURL.toURL().readText()).asJsonObject.getAsJsonArray("artifacts").get(0).asJsonObject.get("relativePath").asString
 
-        return downloadFile(folder, "Pufferfish-$mcVersion.jar", "$mainURL/artifact/$path")
+        return downloadFile(folder, "$mainURL/artifact/$path")
     }
 
 
 
     private fun downloadFile(
         folder: File,
-        fileName: String,
         downloadURL: String
     ): CompletableFuture<DownloadResult> = CompletableFuture.supplyAsync {
 
-        val file = File(folder, fileName)
+        val file = File(folder, "server.jar")
 
         if (!file.exists()) {
             return@supplyAsync try {
