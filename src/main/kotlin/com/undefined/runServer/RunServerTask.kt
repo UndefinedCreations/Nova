@@ -1,16 +1,10 @@
 package com.undefined.runServer
 
+import com.undefined.runServer.lib.DownloadLib
 import com.undefined.runServer.lib.DownloadResult
 import com.undefined.runServer.lib.DownloadResultType
 import com.undefined.runServer.lib.TaskLib
-import org.gradle.api.DefaultTask
-import org.gradle.api.provider.Property
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.JavaExec
-import org.gradle.api.tasks.Optional
-import org.gradle.api.tasks.TaskAction
 import java.io.File
-import java.util.concurrent.CompletableFuture
 
 abstract class RunServerTask: AbstractServer() {
 
@@ -20,10 +14,14 @@ abstract class RunServerTask: AbstractServer() {
 
     private var mcVersion: String? = null
 
-    private var serverFolder: String = "run"
+    private var allowedRam: String = "2G"
+
+    private var port: Int = 25565
 
 
     fun mcVersion(string: String) {mcVersion = string}
+    fun allowedRam(string: String) {allowedRam = string}
+    fun port(port: Int) {this.port = port}
 
 
     override fun exec() {
@@ -39,20 +37,21 @@ abstract class RunServerTask: AbstractServer() {
         loadPlugin()
 
         logger.info("Downloading latest jar of type ${serverType.name.lowercase()} version $mcVersion...")
-        downloadServerJar().thenAccept {
-            if (it.downloadResultType == DownloadResultType.SUCCESS) {
-                logger.info("Downloaded!")
+        val down = downloadServerJar()
 
-                setClass(it.jarFile!!)
+        if (down.downloadResultType == DownloadResultType.SUCCESS) {
 
-                super.exec()
-            }
+            setClass(down.jarFile!!)
 
-        }.join()
+            setJvmArgs(listOf("--nogui", "-Xmx$allowedRam"))
+
+            super.exec()
+
+        }
     }
 
 
-    private fun downloadServerJar(): CompletableFuture<DownloadResult> = serverType.downloadJar(mcVersion!!, workingDir)
+    private fun downloadServerJar(): DownloadResult = serverType.downloadJar(mcVersion!!, workingDir)
 
     private fun loadPlugin() {
         logger.info("Creating plugin...")
@@ -60,7 +59,7 @@ abstract class RunServerTask: AbstractServer() {
         val pluginFile = pluginTask.outputs.files.singleFile
         val inServerFile = File(pluginDir!!, pluginFile.name)
         logger.info("Coping plugins...")
-        pluginFile.copyTo(inServerFile)
+        pluginFile.copyTo(inServerFile, true)
         logger.info("Plugin creation finished")
     }
 

@@ -18,7 +18,7 @@ enum class ServerType(val URL_BUILDVERSION: String, val URL_DOWNLOAD: String) {
     FOLIA("", "")
 }
 
-fun ServerType.downloadJar(mcVersion: String, folder: File): CompletableFuture<DownloadResult> =
+fun ServerType.downloadJar(mcVersion: String, folder: File): DownloadResult =
     when(this) {
         ServerType.SPIGOT -> DownloadLib.downloadSpigot(folder, mcVersion)
         ServerType.CRAFTBUKKIT -> DownloadLib.downloadBukkit(folder, mcVersion)
