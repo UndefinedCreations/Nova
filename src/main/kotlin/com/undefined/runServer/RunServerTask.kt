@@ -27,6 +27,7 @@ abstract class RunServerTask: AbstractServer() {
             throw IllegalArgumentException("No minecraft version selected")
         }
 
+        enableEula()
         setup()
         createFolders()
         loadPlugin()
@@ -68,5 +69,15 @@ abstract class RunServerTask: AbstractServer() {
             pluginDir!!.mkdirs()
         }
         logger.info("Created server folders!")
+    }
+
+    private fun enableEula() {
+        val eulaFile = File(workingDir, "eula.txt")
+
+        if (!eulaFile.exists()) {
+            eulaFile.createNewFile()
+            eulaFile.writeText("eula=true")
+        }
+
     }
 }
