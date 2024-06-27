@@ -24,7 +24,7 @@ abstract class AbstractServer: JavaExec() {
     protected fun setup() {
         standardInput = System.`in`
         if (runDir == null) {
-            runDir = File(project.layout.buildDirectory.get().asFile, "run/${serverType.name}")
+            runDir = File(project.layout.projectDirectory.asFile, "run/${serverType.name}")
         }
         pluginDir = File(runDir, "plugins")
         workingDir(runDir!!.path)
