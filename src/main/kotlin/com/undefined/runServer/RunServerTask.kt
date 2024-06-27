@@ -15,11 +15,8 @@ abstract class RunServerTask: AbstractServer() {
 
     private var allowedRam: String = "2G"
 
-    private var port: Int = 25565
-
     fun mcVersion(string: String) {mcVersion = string}
     fun allowedRam(string: String) {allowedRam = string}
-    fun port(port: Int) {this.port = port}
 
 
     override fun exec() {

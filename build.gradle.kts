@@ -23,10 +23,10 @@ gradlePlugin {
 
     plugins {
         create("runServer") {
-            id = "com.undefined.runServer"
+            id = "com.undefinedcreation.runServer"
             displayName = "Undefined run server"
             description = "This gradle plugin allows you to run different type of minecraft servers in your Intellij"
-            tags = listOf("spigot", "mapping", "NMS", "mojang", "utils", "server", "runServer", "paper", "pufferfishmc")
+            tags = listOf("spigot", "mapping", "NMS", "mojang", "utils", "server", "runServer", "paper", "pufferfishmc", "purpur", "bungeecord", "waterfall")
             implementationClass = "com.undefined.runServer.RunServerPlugin"
         }
     }
