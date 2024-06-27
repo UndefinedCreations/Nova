@@ -1,4 +1,4 @@
-package com.undefined.runServer
+package com.undefinedcreation.runServer
 
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.JavaExec

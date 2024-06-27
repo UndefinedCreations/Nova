@@ -1,6 +1,6 @@
-package com.undefined.runServer
+package com.undefinedcreation.runServer
 
-import com.undefined.runServer.lib.TaskLib
+import com.undefinedcreation.runServer.lib.TaskLib
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

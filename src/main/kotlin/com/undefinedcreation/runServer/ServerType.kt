@@ -1,7 +1,7 @@
-package com.undefined.runServer
+package com.undefinedcreation.runServer
 
-import com.undefined.runServer.lib.DownloadLib
-import com.undefined.runServer.lib.DownloadResult
+import com.undefinedcreation.runServer.lib.DownloadLib
+import com.undefinedcreation.runServer.lib.DownloadResult
 import java.io.File
 import java.util.concurrent.CompletableFuture
 

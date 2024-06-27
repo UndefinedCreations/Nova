@@ -1,9 +1,12 @@
-package com.undefined.runServer.lib
+package com.undefinedcreation.runServer.lib
 
 import com.google.gson.JsonParser
 import java.io.File
 import java.io.FileOutputStream
+import java.net.HttpURLConnection
 import java.net.URI
+import java.net.URL
+import java.util.regex.Pattern
 
 object DownloadLib {
 
@@ -49,7 +52,7 @@ object DownloadLib {
         folder: File,
         downloadURL: URI,
         name: String
-    ): DownloadResult  {
+    ): DownloadResult {
         val file = File(folder, name)
 
         return if (!file.exists()) {
@@ -67,6 +70,7 @@ object DownloadLib {
             DownloadResult(DownloadResultType.SUCCESS, null, file)
         }
     }
+
 
 }
 
