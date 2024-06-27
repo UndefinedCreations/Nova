@@ -12,12 +12,14 @@ abstract class RunServerTask: AbstractServer() {
     }
 
     private var mcVersion: String? = null
-
     private var allowedRam: String = "2G"
 
-    fun mcVersion(string: String) {mcVersion = string}
-    fun allowedRam(string: String) {allowedRam = string}
+    private var noGui: Boolean = true
 
+    fun mcVersion(string: String) { mcVersion = string }
+    fun allowedRam(string: String) { allowedRam = string }
+
+    fun noGui(boolean: Boolean) { noGui = boolean }
 
     override fun exec() {
         if (mcVersion == null) {
@@ -35,9 +37,7 @@ abstract class RunServerTask: AbstractServer() {
         if (down.downloadResultType == DownloadResultType.SUCCESS) {
 
             setClass(down.jarFile!!)
-
-            args("--nogui")
-
+            if (noGui) args("--nogui")
             setJvmArgs(listOf("-Xmx$allowedRam"))
 
             super.exec()

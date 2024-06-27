@@ -8,12 +8,11 @@ import java.util.concurrent.CompletableFuture
 
 object DownloadLib {
 
-    private val PAPERMC_REPO = "https://api.papermc.io/v2/projects"
-    private val GETBUKKIT_REPO = "https://download.getbukkit.org/"
-    private val BUNGEECORD_REPO = "https://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/bootstrap/target/BungeeCord.jar"
-    private val PURPER_REPO = "https://api.purpurmc.org/v2/purpur"
-    private val PUFFERFISH_REPO = "https://ci.pufferfish.host/job"
-
+    private const val PAPERMC_REPO = "https://api.papermc.io/v2/projects"
+    private const val GETBUKKIT_REPO = "https://download.getbukkit.org/"
+    private const val BUNGEECORD_REPO = "https://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/bootstrap/target/BungeeCord.jar"
+    private const val PURPER_REPO = "https://api.purpurmc.org/v2/purpur"
+    private const val PUFFERFISH_REPO = "https://ci.pufferfish.host/job"
 
     private fun downloadFromPaperMC(folder: File, mcVersion: String, stringProjectName: String): DownloadResult {
         val url = URI("$PAPERMC_REPO/$stringProjectName/versions/$mcVersion")
@@ -33,7 +32,6 @@ object DownloadLib {
     fun downloadBungeecord(folder: File, mcVersion: String): DownloadResult = downloadFile(folder, BUNGEECORD_REPO)
     fun downloadPurper(folder: File, mcVersion: String): DownloadResult = downloadFile(folder, "$PURPER_REPO/$mcVersion/latest/download")
     fun downloadPufferFish(folder: File, mcVersion: String): DownloadResult {
-
         val mainURL = URI("$PUFFERFISH_REPO/Pufferfish-$mcVersion/lastSuccessfulBuild")
 
         val buildURL = URI("$mainURL/api/json")
@@ -42,16 +40,14 @@ object DownloadLib {
         return downloadFile(folder, "$mainURL/artifact/$path")
     }
 
-
-
     private fun downloadFile(
         folder: File,
         downloadURL: String
     ): DownloadResult  {
         val file = File(folder, "server.jar")
 
-        if (!file.exists()) {
-            return try {
+        return if (!file.exists()) {
+            try {
                 URI(downloadURL).toURL().openStream().use { input ->
                     FileOutputStream(file).use { output ->
                         input.copyTo(output)
@@ -62,9 +58,10 @@ object DownloadLib {
                 DownloadResult(DownloadResultType.FAILED, exception.message, null)
             }
         } else {
-            return DownloadResult(DownloadResultType.SUCCESS, null, file)
+            DownloadResult(DownloadResultType.SUCCESS, null, file)
         }
     }
+
 }
 
 data class DownloadResult(val downloadResultType: DownloadResultType, val e: String?, val jarFile: File?)
