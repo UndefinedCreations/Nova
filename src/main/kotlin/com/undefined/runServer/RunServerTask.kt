@@ -1,9 +1,12 @@
 package com.undefined.runServer
 
+import com.undefined.runServer.lib.DownloadLib
 import com.undefined.runServer.lib.DownloadResult
 import com.undefined.runServer.lib.DownloadResultType
 import com.undefined.runServer.lib.TaskLib
+import org.gradle.api.tasks.Internal
 import java.io.File
+import java.net.URI
 
 abstract class RunServerTask: AbstractServer() {
 
@@ -15,11 +18,15 @@ abstract class RunServerTask: AbstractServer() {
     private var allowedRam: String = "2G"
 
     private var noGui: Boolean = true
+    @get:Internal
+    private var downloads: MutableList<URI> = mutableListOf()
 
     fun mcVersion(string: String) { mcVersion = string }
     fun allowedRam(string: String) { allowedRam = string }
 
     fun noGui(boolean: Boolean) { noGui = boolean }
+    fun downloads(vararg links: URI) { downloads.addAll(links) }
+    fun downloads(vararg links: String) { links.forEach { downloads.add(URI(it)) } }
 
     override fun exec() {
         if (mcVersion == null) {
@@ -33,20 +40,22 @@ abstract class RunServerTask: AbstractServer() {
         loadPlugin()
 
         logger.info("Downloading latest jar of type ${serverType.name.lowercase()} version $mcVersion...")
-        val down = downloadServerJar()
+        val download = downloadServerJar()
 
-        if (down.downloadResultType == DownloadResultType.SUCCESS) {
-
-            setClass(down.jarFile!!)
+        if (download.downloadResultType == DownloadResultType.SUCCESS) {
+            setClass(download.jarFile!!)
             if (noGui) args("--nogui")
             setJvmArgs(listOf("-Xmx$allowedRam"))
+
+            downloads.forEach {
+                DownloadLib.downloadFile(workingDir, it.path, File(it).name)
+            }
 
             super.exec()
         } else {
             logger.error("Download failed. Makes sure your version does exists.")
         }
     }
-
 
     private fun downloadServerJar(): DownloadResult = serverType.downloadJar(mcVersion!!, workingDir)
 
