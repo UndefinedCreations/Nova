@@ -22,6 +22,7 @@ abstract class RunServerTask: AbstractServer() {
 
     private var noGui: Boolean = true
     private var downloads: MutableList<URI> = mutableListOf()
+    private var acceptEula: Boolean = false
 
     fun mcVersion(string: String) { mcVersion = string }
     fun allowedRam(string: String) { allowedRam = string }
@@ -29,6 +30,8 @@ abstract class RunServerTask: AbstractServer() {
     fun noGui(boolean: Boolean) { noGui = boolean }
     fun downloads(vararg links: URI) { downloads.addAll(links) }
     fun downloads(vararg links: String) { links.forEach { downloads.add(URI(it)) } }
+
+    fun acceptMojangEula(boolean: Boolean) {acceptEula = boolean}
 
     override fun exec() {
         if (mcVersion == null) {
@@ -47,7 +50,10 @@ abstract class RunServerTask: AbstractServer() {
         if (download.downloadResultType == DownloadResultType.SUCCESS) {
             setClass(download.jarFile!!)
             if (noGui) args("--nogui")
-            setJvmArgs(listOf("-Xmx$allowedRam"))
+
+            val jvmFlags = mutableListOf("-Xmx$allowedRam")
+            if (acceptEula) jvmFlags.add("-Dcom.mojang.eula.agree=true")
+            setJvmArgs(jvmFlags)
 
             super.exec()
         } else {
