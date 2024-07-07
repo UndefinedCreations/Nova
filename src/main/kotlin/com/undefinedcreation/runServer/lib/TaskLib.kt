@@ -1,12 +1,16 @@
 package com.undefinedcreation.runServer.lib
 
+import com.undefinedcreation.runServer.RunServerTask
 import org.gradle.api.Project
 import org.gradle.api.Task
 
 object TaskLib {
     fun getPluginTask(project: Project): Task {
-        if (project.tasks.names.contains("remap")) return project.tasks.named("remap").get()
-        if (project.tasks.names.contains("shadowJar")) return project.tasks.named("shadowJar").get()
+        project.tasks.forEach {
+            if (it.name == "shadowJar") {
+                return it
+            }
+        }
         return project.tasks.named("jar").get()
     }
 }

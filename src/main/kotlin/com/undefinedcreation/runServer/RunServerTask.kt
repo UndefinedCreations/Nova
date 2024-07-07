@@ -4,6 +4,7 @@ import com.undefinedcreation.runServer.lib.DownloadLib
 import com.undefinedcreation.runServer.lib.DownloadResult
 import com.undefinedcreation.runServer.lib.DownloadResultType
 import com.undefinedcreation.runServer.lib.TaskLib
+import org.gradle.api.Task
 import org.gradle.api.tasks.Internal
 import java.io.File
 import java.net.HttpURLConnection
@@ -32,6 +33,7 @@ abstract class RunServerTask: AbstractServer() {
     fun downloads(vararg links: String) { links.forEach { downloads.add(URI(it)) } }
 
     fun acceptMojangEula(boolean: Boolean) {acceptEula = boolean}
+
 
     override fun exec() {
         if (mcVersion == null) {
