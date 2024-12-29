@@ -15,7 +15,7 @@ abstract class AbstractServer: JavaExec() {
     protected var serverType: ServerType = ServerType.SPIGOT
 
     fun serverFolder(string: String) { runDir = File(project.layout.buildDirectory.get().asFile, string) }
-    fun serverType(serverType: ServerType) { this.serverType = serverType }
+    fun serverType(serverType: ServerType) { if (serverType != ServerType.CUSTOM) this.serverType = serverType }
 
     protected fun setRunningDir(file: File) = file.also { runDir = it }
     protected fun setClass(file: File) = classpath(file.path)
