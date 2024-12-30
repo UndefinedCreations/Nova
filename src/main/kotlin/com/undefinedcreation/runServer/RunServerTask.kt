@@ -16,7 +16,7 @@ abstract class RunServerTask: AbstractServer() {
         outputs.upToDateWhen { false }
     }
 
-    private var mcVersion: String? = null
+
     private var allowedRam: String = "2G"
 
     private var noGui: Boolean = true
@@ -28,7 +28,7 @@ abstract class RunServerTask: AbstractServer() {
 
     private var customJarName: String? = null
 
-    fun mcVersion(string: String) { mcVersion = string }
+
     fun allowedRam(string: String) { allowedRam = string }
 
     fun noGui(boolean: Boolean) { noGui = boolean }

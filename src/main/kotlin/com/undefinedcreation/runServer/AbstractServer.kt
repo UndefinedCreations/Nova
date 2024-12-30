@@ -13,7 +13,14 @@ abstract class AbstractServer: JavaExec() {
 
     @get:Internal
     protected var serverType: ServerType = ServerType.SPIGOT
+    @get:Internal
+    protected var mcVersion: String? = null
 
+    @get:Internal
+    protected var versionFolder: Boolean = false
+
+    fun perVersionFolder(boolean: Boolean) { versionFolder = boolean }
+    fun mcVersion(string: String) { mcVersion = string }
     fun serverFolder(string: String) { runDir = File(project.layout.buildDirectory.get().asFile, string) }
     fun serverType(serverType: ServerType) { if (serverType != ServerType.CUSTOM) this.serverType = serverType }
 
@@ -24,7 +31,7 @@ abstract class AbstractServer: JavaExec() {
     protected fun setup() {
         standardInput = System.`in`
         if (runDir == null) {
-            runDir = File(project.layout.projectDirectory.asFile, "run/${serverType.name}")
+            runDir = File(project.layout.projectDirectory.asFile, "run${if (versionFolder) "/$mcVersion" else ""}/${serverType.name}")
         }
         pluginDir = File(runDir, "plugins")
         workingDir(runDir!!.path)
