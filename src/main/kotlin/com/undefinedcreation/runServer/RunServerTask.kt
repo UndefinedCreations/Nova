@@ -29,7 +29,7 @@ abstract class RunServerTask: AbstractServer() {
     private var customJarName: String? = null
 
 
-    fun allowedRam(string: String) { allowedRam = string }
+    fun allowedRam(amount: Int, ramAmount: RamAmount) { allowedRam = "$amount${ramAmount.flag}" }
 
     fun noGui(boolean: Boolean) { noGui = boolean }
     fun plugins(vararg links: String) { links.forEach { downloads.add(it) } }
