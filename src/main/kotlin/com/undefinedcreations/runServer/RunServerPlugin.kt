@@ -20,6 +20,6 @@ class RunServerPlugin: Plugin<Project> {
         target.tasks.register("runServer", RunServerTask::class.java) {
             it.group = "undefined"
             it.description = "This task will run an minecraft server inside your Intellij"
-        }.get().dependsOn(target.tasks.named("jar"))
+        }
     }
 }

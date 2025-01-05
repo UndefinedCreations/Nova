@@ -6,7 +6,7 @@ import com.undefinedcreations.runServer.lib.TaskLib
 import com.undefinedcreations.runServer.lib.links.DownloadResult
 import com.undefinedcreations.runServer.lib.links.DownloadResultType
 import com.undefinedcreations.runServer.lib.links.PluginLib
-import org.gradle.api.Task
+import org.gradle.api.tasks.TaskProvider
 import java.io.File
 
 /**
@@ -18,6 +18,7 @@ abstract class RunServerTask: AbstractServer() {
 
     /**
      * On init with make sure the task will run every time.
+     * I was very slow when writing this (mentally)
      */
     init {
         outputs.upToDateWhen { false }
@@ -31,14 +32,17 @@ abstract class RunServerTask: AbstractServer() {
     private var customJarPath: String? = null
     private var replaceCustomJar: Boolean = false
     private var customJarName: String? = null
-    private var inputTask: Task? = null
+    private var inputTask: TaskProvider<*>? = null
 
     /**
      * This is an option to select the input task
      *
      * @param task The new input task
      */
-    fun inputTask(task: Task) { inputTask = task }
+    fun inputTask(task: TaskProvider<*>) {
+        inputTask = task
+        setDependsOn(mutableListOf(task))
+    }
 
     /**
      * This is an option to set the amount of ram the server is allowed to use.
@@ -130,7 +134,10 @@ abstract class RunServerTask: AbstractServer() {
         serverType = ServerType.CUSTOM
         customJarPath = path
         replaceCustomJar = alwaysReplace
+        dependOnTasks()
     }
+
+
 
     /**
      * This will run when the task is called
@@ -140,6 +147,7 @@ abstract class RunServerTask: AbstractServer() {
             logger.error("No minecraft version selected!")
             throw IllegalArgumentException("No minecraft version selected")
         }
+
 
         checkJarVersion()
         setup()
@@ -217,8 +225,7 @@ abstract class RunServerTask: AbstractServer() {
      */
     private fun loadPlugin() {
         logger.info("Creating plugin...")
-        val pluginTask = TaskLib.getPluginTask(project, inputTask)
-        val pluginFile = pluginTask.outputs.files.singleFile
+        val pluginFile = TaskLib.findPluginJar(project, inputTask, this)
         val inServerFile = File(pluginDir!!, pluginFile.name)
         logger.info("Coping plugins...")
         pluginFile.copyTo(inServerFile, true)

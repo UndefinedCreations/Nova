@@ -1,11 +1,12 @@
 package com.undefinedcreations.runServer
 
+import com.undefinedcreations.runServer.lib.TaskLib
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.JavaExec
 import java.io.File
 
 /**
- * This class is extending `JavaExec`. Witch is a task to run jar files
+ * This class is extending `JavaExec`. Which is a task to run jar files
  *
  * @since 1.0.0
  */
@@ -36,7 +37,10 @@ abstract class AbstractServer : JavaExec() {
      *
      * @param minecraftVersion The minecraft version
      */
-    fun minecraftVersion(minecraftVersion: String) { this.minecraftVersion = minecraftVersion }
+    fun minecraftVersion(minecraftVersion: String) {
+        this.minecraftVersion = minecraftVersion
+        dependOnTasks()
+    }
 
     /**
      * This option allowed you to set the folder where the server is running
@@ -73,6 +77,19 @@ abstract class AbstractServer : JavaExec() {
         }
         pluginDir = File(runDir, "plugins")
         workingDir(runDir!!.path)
+    }
+
+    /**
+     * Checks and depends on the correct tasks
+     */
+    protected fun dependOnTasks() {
+        if (TaskLib.TaskNames.REMAP in project.tasks.names) {
+            setDependsOn(mutableListOf(project.tasks.named(TaskLib.TaskNames.REMAP)))
+        } else if (TaskLib.TaskNames.SHADOW in project.tasks.names) {
+            setDependsOn(mutableListOf(project.tasks.named(TaskLib.TaskNames.SHADOW)))
+        } else {
+            setDependsOn(mutableListOf(project.tasks.named(TaskLib.TaskNames.JAR)))
+        }
     }
 
 }
