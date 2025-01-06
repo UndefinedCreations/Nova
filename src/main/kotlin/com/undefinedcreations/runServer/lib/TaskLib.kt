@@ -4,7 +4,6 @@ import com.undefinedcreations.runServer.RunServerTask
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
-import org.gradle.api.tasks.bundling.AbstractArchiveTask
 import java.io.File
 
 /**
@@ -49,10 +48,10 @@ object TaskLib {
             return task.get().outputs.files.singleFile
         }
         if (TaskNames.SHADOW in project.tasks.names) {
-            val task = project.tasks.named(TaskNames.SHADOW) as AbstractArchiveTask
-            return task.archiveFile.get().asFile
+            val task = project.tasks.named(TaskNames.SHADOW)
+            return task.get().outputs.files.singleFile
         }
-        val jar = project.tasks.named(TaskNames.JAR) as AbstractArchiveTask
-        return jar.archiveFile.get().asFile
+        val jar = project.tasks.named(TaskNames.JAR)
+        return jar.get().outputs.files.singleFile
     }
 }
