@@ -1,4 +1,4 @@
-package com.undefinedcreations.runServer
+package com.undefinedcreations.nova
 
 /**
  * This enum is used to select the ram type to be selected.

@@ -1,4 +1,4 @@
-package com.undefinedcreations.runServer
+package com.undefinedcreations.nova
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -8,7 +8,7 @@ import org.gradle.api.Project
  *
  * @since 1.0.0
  */
-class RunServerPlugin : Plugin<Project> {
+class NovaPlugin : Plugin<Project> {
 
     /**
      * This will be run when the plugin is loading.

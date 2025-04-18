@@ -1,7 +1,7 @@
-package com.undefinedcreations.runServer
+package com.undefinedcreations.nova
 
-import com.undefinedcreations.runServer.lib.links.DownloadLib
-import com.undefinedcreations.runServer.lib.links.VersionLib
+import com.undefinedcreations.nova.lib.links.DownloadLib
+import com.undefinedcreations.nova.lib.links.VersionLib
 import java.io.File
 
 /**

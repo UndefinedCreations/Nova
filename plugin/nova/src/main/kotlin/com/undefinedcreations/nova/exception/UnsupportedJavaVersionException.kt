@@ -1,4 +1,4 @@
-package com.undefinedcreations.runServer.exception
+package com.undefinedcreations.nova.exception
 
 /**
  * This exception will be throw then the system doesn't have the correct version of java installed.

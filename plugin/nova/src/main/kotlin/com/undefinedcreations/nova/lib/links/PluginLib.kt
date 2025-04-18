@@ -1,9 +1,9 @@
-package com.undefinedcreations.runServer.lib.links
+package com.undefinedcreations.nova.lib.links
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import com.undefinedcreations.runServer.ServerType
-import com.undefinedcreations.runServer.exception.UnsupportedPluginPlatform
+import com.undefinedcreations.nova.ServerType
+import com.undefinedcreations.nova.exception.UnsupportedPluginPlatform
 import java.io.File
 import java.net.URI
 

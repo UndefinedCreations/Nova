@@ -1,4 +1,4 @@
-package com.undefinedcreations.runServer.exception
+package com.undefinedcreations.nova.exception
 
 /**
  * Exception thrown specified Minecraft version is not found.

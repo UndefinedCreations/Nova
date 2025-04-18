@@ -1,7 +1,6 @@
-package com.undefinedcreations.runServer.lib
+package com.undefinedcreations.nova.lib
 
-import com.undefinedcreations.runServer.RunServerTask
-import com.undefinedcreations.runServer.lib.TaskLib.findPluginJar
+import com.undefinedcreations.nova.RunServerTask
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider

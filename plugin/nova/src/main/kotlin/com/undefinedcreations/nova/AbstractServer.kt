@@ -1,8 +1,8 @@
-package com.undefinedcreations.runServer
+package com.undefinedcreations.nova
 
 import com.google.gson.JsonParser
-import com.undefinedcreations.runServer.exception.UnsupportedJavaVersionException
-import com.undefinedcreations.runServer.lib.TaskLib
+import com.undefinedcreations.nova.exception.UnsupportedJavaVersionException
+import com.undefinedcreations.nova.lib.TaskLib
 import org.gradle.api.JavaVersion
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.JavaExec
@@ -59,7 +59,9 @@ abstract class AbstractServer : JavaExec() {
      *
      * @param folder This gives you the folder data and returns the file to place the server folder
      */
-    fun serverFolderName(folder: (FolderData).() -> String) { runDir = File(project.layout.projectDirectory.asFile, folder(FolderData(minecraftVersion, serverType, project.layout.projectDirectory.asFile))) }
+    fun serverFolderName(folder: (FolderData).() -> String) { runDir = File(project.layout.projectDirectory.asFile, folder(
+        FolderData(minecraftVersion, serverType, project.layout.projectDirectory.asFile)
+    )) }
 
     /**
      * This option allowed you to set the folder where the server is running

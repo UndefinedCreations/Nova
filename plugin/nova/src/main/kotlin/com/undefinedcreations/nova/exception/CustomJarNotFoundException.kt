@@ -1,4 +1,4 @@
-package com.undefinedcreations.runServer.exception
+package com.undefinedcreations.nova.exception
 
 /**
  * Exception thrown when a custom jar file is not found in `customJarPath` and `run` directories.

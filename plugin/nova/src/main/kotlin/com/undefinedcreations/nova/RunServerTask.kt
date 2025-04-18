@@ -1,11 +1,11 @@
-package com.undefinedcreations.runServer
+package com.undefinedcreations.nova
 
-import com.undefinedcreations.runServer.exception.CustomJarNotFoundException
-import com.undefinedcreations.runServer.exception.VersionNotFoundException
-import com.undefinedcreations.runServer.lib.TaskLib
-import com.undefinedcreations.runServer.lib.links.DownloadResult
-import com.undefinedcreations.runServer.lib.links.DownloadResultType
-import com.undefinedcreations.runServer.lib.links.PluginLib
+import com.undefinedcreations.nova.exception.CustomJarNotFoundException
+import com.undefinedcreations.nova.exception.VersionNotFoundException
+import com.undefinedcreations.nova.lib.TaskLib
+import com.undefinedcreations.nova.lib.links.DownloadResult
+import com.undefinedcreations.nova.lib.links.DownloadResultType
+import com.undefinedcreations.nova.lib.links.PluginLib
 import org.gradle.api.tasks.TaskProvider
 import java.io.File
 

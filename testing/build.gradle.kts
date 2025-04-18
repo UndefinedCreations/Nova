@@ -1,8 +1,8 @@
-import com.undefinedcreations.runServer.ServerType
+import com.undefinedcreations.nova.ServerType
 
 plugins {
     kotlin("jvm") version "1.9.21"
-    id("com.undefinedcreations.runServer")
+    id("com.undefinedcreations.nova")
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
