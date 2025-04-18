@@ -2,7 +2,7 @@ import com.undefinedcreations.nova.ServerType
 
 plugins {
     kotlin("jvm") version "1.9.21"
-    id("com.undefinedcreations.echo") version "0.0.10"
+    id("com.undefinedcreations.echo") version "0.0.11"
     id("com.undefinedcreations.nova")
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
@@ -33,6 +33,7 @@ tasks {
         options.release.set(21)
     }
     runServer {
+        debugMessage(debug = true)
         noGui(true)
         perVersionFolder(true)
         acceptMojangEula()

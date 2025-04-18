@@ -177,7 +177,7 @@ abstract class RunServerTask : AbstractServer() {
 
             val slitVersion = minecraftVersion!!.split(".")
             val mainVersion = slitVersion[1].toInt()
-            val subVersion = slitVersion[2].toInt()
+            val subVersion = slitVersion.getOrNull(2)?.toIntOrNull() ?: 0
 
             if (noGui) {
                 if ((mainVersion == 15 && subVersion == 2) || mainVersion > 15) {
@@ -291,10 +291,11 @@ abstract class RunServerTask : AbstractServer() {
                 this.get(null)
             }
             val companionClazz = Class.forName("com.undefinedcreations.echo.EchoPlugin\$Companion")
-            return companionClazz.getDeclaredMethod("getMinecraftVersion").run {
+            val map = companionClazz.getDeclaredMethod("getMinecraftVersions").run {
                 this.isAccessible = true
                 this.invoke(compationInp)
-            } as String
+            } as HashMap<String, String?>
+            return map[project.path]
         } catch (e: Exception) {
             if (debug) throw e
             return null
