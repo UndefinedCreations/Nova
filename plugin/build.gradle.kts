@@ -16,7 +16,6 @@ dependencies {
     api(kotlin("stdlib"))
     implementation("net.md-5:SpecialSource:1.11.4")
     implementation("com.google.code.gson:gson:2.12.1")
-    implementation("com.jeff-media:javafinder:1.4.4")
 }
 
 

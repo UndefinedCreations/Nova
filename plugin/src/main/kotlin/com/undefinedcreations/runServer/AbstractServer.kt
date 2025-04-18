@@ -1,9 +1,13 @@
 package com.undefinedcreations.runServer
 
+import com.google.gson.JsonParser
+import com.undefinedcreations.runServer.exception.UnsupportedJavaVersionException
 import com.undefinedcreations.runServer.lib.TaskLib
+import org.gradle.api.JavaVersion
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.JavaExec
 import java.io.File
+import java.net.URI
 
 /**
  * This class is extending `JavaExec`. Which is a task to run jar files
@@ -40,6 +44,7 @@ abstract class AbstractServer : JavaExec() {
     fun minecraftVersion(minecraftVersion: String) {
         this.minecraftVersion = minecraftVersion
         dependOnTasks()
+        checkJavaVersion(minecraftVersion, javaVersion)
     }
 
     /**
@@ -97,6 +102,23 @@ abstract class AbstractServer : JavaExec() {
         } else {
             setDependsOn(mutableListOf(project.tasks.named(TaskLib.TaskNames.JAR)))
         }
+    }
+
+    /**
+     * Throws a [UnsupportedJavaVersionException] if the correct Java version is not used.
+     */
+    private fun checkJavaVersion(minecraftVersion: String, javaVersion: JavaVersion) {
+        val uri = URI.create("https://hub.spigotmc.org/versions/$minecraftVersion.json").toURL()
+        val response = JsonParser.parseString(uri.readText()).asJsonObject
+
+        val versionsArray = response["javaVersions"].asJsonArray
+        val minJava = versionsArray[0].asInt
+        val maxJava = versionsArray[1].asInt
+
+        val classFileMajorVersion: Int = javaVersion.majorVersion.toInt() + 44
+        if (classFileMajorVersion in minJava..maxJava) return
+
+        throw UnsupportedJavaVersionException(minJava, maxJava)
     }
 
 }

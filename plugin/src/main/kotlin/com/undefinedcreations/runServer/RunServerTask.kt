@@ -137,8 +137,6 @@ abstract class RunServerTask : AbstractServer() {
         dependOnTasks()
     }
 
-
-
     /**
      * This will run when the task is called
      */
@@ -148,8 +146,7 @@ abstract class RunServerTask : AbstractServer() {
             throw IllegalArgumentException("No minecraft version selected")
         }
 
-
-        checkJarVersion()
+        checkServerVersion()
         setup()
         createFolders()
         setUpCustomJar()
@@ -162,10 +159,9 @@ abstract class RunServerTask : AbstractServer() {
             download = downloadServerJar()
         }
 
-
         if (download == null || download.resultType == DownloadResultType.SUCCESS) {
             setClass(download?.jarFile ?: File(workingDir, customJarName!!))
-            if (noGui) args("--nogui")
+            if (noGui && serverType != ServerType.SPIGOT) args("--nogui")
 
             val jvmFlags = mutableListOf("-Xmx$allowedRam")
             if (serverType == ServerType.SPIGOT) jvmFlags.add("-DIReallyKnowWhatIAmDoingISwear")
@@ -179,14 +175,12 @@ abstract class RunServerTask : AbstractServer() {
     }
 
     /**
-     * This is checking the jar version and if it exists
+     * This is checking the server version and if it exists.
      */
-    private fun checkJarVersion() {
+    private fun checkServerVersion() {
         if (serverType == ServerType.CUSTOM) return
         serverType.versions().let {
-            if (!it.contains(minecraftVersion)) {
-                throw VersionNotFoundException(minecraftVersion!!, it)
-            }
+            if (minecraftVersion !in it) throw VersionNotFoundException(minecraftVersion!!, it)
         }
     }
 
@@ -241,7 +235,6 @@ abstract class RunServerTask : AbstractServer() {
         }
 
         copyFilePlugins()
-
     }
 
     /**
