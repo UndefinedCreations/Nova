@@ -15,32 +15,28 @@ object VersionLib {
      *
      * @return A list of all supported versions for `PaperMC`.
      */
-    fun paper(): List<String> =
-        paperRepoVersions("paper")
+    fun paper(): List<String> = paperRepoVersions("paper")
 
     /**
      * Used to get a list of all supported for `Velocity`.
      *
      * @return A list of all supported versions for `Velocity`.
      */
-    fun velocity(): List<String> =
-        paperRepoVersions("velocity")
+    fun velocity(): List<String> = paperRepoVersions("velocity")
 
     /**
      * Used to get a list of all supported for `Folia`.
      *
      * @return A list of all supported versions for `Folia`.
      */
-    fun folia(): List<String> =
-        paperRepoVersions("folia")
+    fun folia(): List<String> = paperRepoVersions("folia")
 
     /**
      * Used to get a list of all supported for `Waterfall`.
      *
      * @return A list of all supported versions for `Waterfall`.
      */
-    fun waterfall(): List<String> =
-        paperRepoVersions("waterfall")
+    fun waterfall(): List<String> = paperRepoVersions("waterfall")
 
     /**
      * Used to get a list of all supported for `Spigot`.
@@ -48,7 +44,7 @@ object VersionLib {
      * @return A list of all supported versions for `Spigot`.
      */
     fun spigot(): List<String> {
-        val url = URI(Repositories.UNDEFINEDCREATION_REPO)
+        val url = URI(Repositories.UNDEFINEDCREATIONS_REPO)
         val text = url.toURL().readText()
         val regex = """spigot-\d+\.\d+(\.\d+)?\.jar""".toRegex()
         val files = regex.findAll(text).map { it.value.replace("spigot-", "").replace(".jar", "") }.toSet()
@@ -69,7 +65,7 @@ object VersionLib {
      * @return A list of all supported versions for `Purpur`.
      */
     fun purpur(): List<String> {
-        val url = URI(Repositories.PURPER_REPO)
+        val url = URI(Repositories.PURPUR_REPO)
         val versions = JsonParser.parseString(url.toURL().readText())
             .asJsonObject.getAsJsonArray("versions")
         return versions.map { it.asString }

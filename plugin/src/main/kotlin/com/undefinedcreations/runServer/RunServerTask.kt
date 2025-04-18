@@ -14,7 +14,7 @@ import java.io.File
  *
  * @since 1.0.0
  */
-abstract class RunServerTask: AbstractServer() {
+abstract class RunServerTask : AbstractServer() {
 
     /**
      * On init with make sure the task will run every time.

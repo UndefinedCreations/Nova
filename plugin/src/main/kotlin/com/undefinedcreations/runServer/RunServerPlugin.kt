@@ -3,13 +3,12 @@ package com.undefinedcreations.runServer
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-
 /**
  * This class is registering the task with gradle
  *
  * @since 1.0.0
  */
-class RunServerPlugin: Plugin<Project> {
+class RunServerPlugin : Plugin<Project> {
 
     /**
      * This will be run when the plugin is loading.

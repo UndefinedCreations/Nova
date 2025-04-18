@@ -3,17 +3,17 @@ package com.undefinedcreations.runServer
 /**
  * This enum is used to select the ram type to be selected.
  *
- * @param flag The jvm flag name
+ * @param flag The jvm flag name.
  * @since 1.0
  */
 enum class RamAmount(val flag: String) {
     /**
-     * Gigabyte
+     * Represents a gigabyte.
      */
     GIGABYTE("G"),
 
     /**
-     * Megabyte
+     * Represents a megabyte.
      */
     MEGABYTE("M")
 }

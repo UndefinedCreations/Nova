@@ -1,0 +1,4 @@
+name: Echo
+version: '${version}'
+main: com.undefinedcreation.echo.Main
+api-version: '1.21'

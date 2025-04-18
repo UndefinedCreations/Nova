@@ -1,6 +1,7 @@
 package com.undefinedcreations.runServer.lib
 
 import com.undefinedcreations.runServer.RunServerTask
+import com.undefinedcreations.runServer.lib.TaskLib.findPluginJar
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
@@ -26,7 +27,7 @@ object TaskLib {
      * @param inputTask This will be null if there is no input task selected
      * @return The task to run.
      */
-    @Deprecated("FUCKING SHIT")
+    @Deprecated("FUCKING SHIT", ReplaceWith("findPluginJar()"))
     fun getPluginTask(project: Project, inputTask: TaskProvider<*>?): Task =
         project.tasks.named(inputTask?.name ?: "jar").get()
 
