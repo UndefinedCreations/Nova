@@ -2,6 +2,7 @@ import com.undefinedcreations.nova.ServerType
 
 plugins {
     kotlin("jvm") version "1.9.21"
+    id("com.undefinedcreations.echo") version "0.0.10"
     id("com.undefinedcreations.nova")
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
@@ -18,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT")
+    echo("1.13", mojangMappings = false)
 }
 
 tasks {
@@ -32,8 +33,8 @@ tasks {
         options.release.set(21)
     }
     runServer {
-        minecraftVersion("1.13")
-        serverFolderName { "run" }
+        noGui(true)
+        perVersionFolder(true)
         acceptMojangEula()
         serverType(ServerType.SPIGOT)
     }

@@ -33,6 +33,7 @@ abstract class RunServerTask : AbstractServer() {
     private var replaceCustomJar: Boolean = false
     private var customJarName: String? = null
     private var inputTask: TaskProvider<*>? = null
+    private var debug: Boolean = false
 
     /**
      * This is an option to select the input task
@@ -55,9 +56,16 @@ abstract class RunServerTask : AbstractServer() {
     /**
      * This is an option is allowing some server jar to create a gui on start
      *
+     * No gui will not have any effect on versions before 1.15.2
+     *
      * @param boolean allow or disallow
      */
     fun noGui(boolean: Boolean) { noGui = boolean }
+
+    /**
+     * This option will throw out exceptions
+     */
+    fun debugMessage(debug: Boolean) { this.debug = debug }
 
     /**
      * This is an option to download plugin from an external website.
@@ -142,8 +150,13 @@ abstract class RunServerTask : AbstractServer() {
      */
     override fun exec() {
         if (minecraftVersion == null) {
-            logger.error("No minecraft version selected!")
-            throw IllegalArgumentException("No minecraft version selected")
+            val echoVersion = getEchoMinecraftVersion()
+            if (echoVersion == null) {
+                logger.error("No minecraft version selected!")
+                throw IllegalArgumentException("No minecraft version selected")
+            } else {
+                minecraftVersion = echoVersion
+            }
         }
 
         checkServerVersion()
@@ -161,7 +174,16 @@ abstract class RunServerTask : AbstractServer() {
 
         if (download == null || download.resultType == DownloadResultType.SUCCESS) {
             setClass(download?.jarFile ?: File(workingDir, customJarName!!))
-            if (noGui && serverType != ServerType.SPIGOT) args("--nogui")
+
+            val slitVersion = minecraftVersion!!.split(".")
+            val mainVersion = slitVersion[1].toInt()
+            val subVersion = slitVersion[2].toInt()
+
+            if (noGui) {
+                if ((mainVersion == 15 && subVersion == 2) || mainVersion > 15) {
+                    args("--nogui")
+                }
+            }
 
             val jvmFlags = mutableListOf("-Xmx$allowedRam")
             if (serverType == ServerType.SPIGOT) jvmFlags.add("-DIReallyKnowWhatIAmDoingISwear")
@@ -259,6 +281,24 @@ abstract class RunServerTask : AbstractServer() {
             pluginDir!!.mkdirs()
         }
         logger.info("Created server folders!")
+    }
+
+    private fun getEchoMinecraftVersion(): String? {
+        try {
+            val clazz = Class.forName("com.undefinedcreations.echo.EchoPlugin")
+            val compationInp = clazz.getDeclaredField("Companion").run {
+                this.isAccessible = true
+                this.get(null)
+            }
+            val companionClazz = Class.forName("com.undefinedcreations.echo.EchoPlugin\$Companion")
+            return companionClazz.getDeclaredMethod("getMinecraftVersion").run {
+                this.isAccessible = true
+                this.invoke(compationInp)
+            } as String
+        } catch (e: Exception) {
+            if (debug) throw e
+            return null
+        }
     }
 
 }

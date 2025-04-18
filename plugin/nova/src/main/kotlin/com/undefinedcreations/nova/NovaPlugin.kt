@@ -17,7 +17,7 @@ class NovaPlugin : Plugin<Project> {
      */
     override fun apply(target: Project) {
         target.tasks.register("runServer", RunServerTask::class.java) {
-            it.group = "undefined"
+            it.group = "nova"
             it.description = "This task will run an minecraft server inside your Intellij"
         }
     }
