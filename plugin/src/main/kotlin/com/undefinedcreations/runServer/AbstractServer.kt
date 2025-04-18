@@ -54,7 +54,14 @@ abstract class AbstractServer : JavaExec() {
      *
      * @param folder This gives you the folder data and returns the file to place the server folder
      */
-    fun serverFolderName(folder: (FolderData).() -> String) { runDir = File(project.layout.projectDirectory.asFile, folder(FolderData(minecraftVersion, serverType, project.layout.projectDirectory.asFile)))}
+    fun serverFolderName(folder: (FolderData).() -> String) { runDir = File(project.layout.projectDirectory.asFile, folder(FolderData(minecraftVersion, serverType, project.layout.projectDirectory.asFile))) }
+
+    /**
+     * This option allowed you to set the folder where the server is running
+     *
+     * @param name The server folder name
+     */
+    fun serverFolderName(name: String) { runDir = File(project.layout.projectDirectory.asFile, name) }
 
     /**
      * This option allows you to set what type of server you will be running.
@@ -64,8 +71,8 @@ abstract class AbstractServer : JavaExec() {
     fun serverType(serverType: ServerType) { if (serverType != ServerType.CUSTOM) this.serverType = serverType }
 
     protected fun setRunningDir(file: File) = file.also { runDir = it }
-    protected fun setClass(file: File) = classpath(file.path)
-    protected fun setJvmArgs(args: List<String>) = jvmArgs(args)
+    protected fun setClass(file: File): JavaExec = classpath(file.path)
+    protected fun setJvmArgs(args: List<String>): JavaExec = jvmArgs(args)
 
     /**
      * This sets up the `runDir` of JavaExec
