@@ -20,18 +20,6 @@ object TaskLib {
     }
 
     /**
-     * Gets the task to build and run on the server
-     *
-     * @param project The gradle project
-     * @param inputTask This will be null if there is no input task selected
-     * @return The task to run.
-     */
-    @Deprecated("FUCKING SHIT", ReplaceWith("findPluginJar()"))
-    fun getPluginTask(project: Project, inputTask: TaskProvider<*>?): Task =
-        project.tasks.named(inputTask?.name ?: "jar").get()
-
-
-    /**
      * Gets the projects plugin file by check what task to use and the depending on them
      *
      * @param project The gradle project
