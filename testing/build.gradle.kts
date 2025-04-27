@@ -33,11 +33,13 @@ tasks {
         options.release.set(21)
     }
     runServer {
+
+        serverType(ServerType.VELOCITY)
+        minecraftVersion("3.4.0-SNAPSHOT")
         debugMessage(debug = true)
         noGui(true)
         perVersionFolder(true)
         acceptMojangEula()
-        serverType(ServerType.SPIGOT)
     }
 }
 

@@ -44,7 +44,7 @@ abstract class AbstractServer : JavaExec() {
     fun minecraftVersion(minecraftVersion: String) {
         this.minecraftVersion = minecraftVersion
         dependOnTasks()
-        checkJavaVersion(minecraftVersion, javaVersion)
+        if (!serverType.proxy && serverType != ServerType.CUSTOM) checkJavaVersion(minecraftVersion, javaVersion)
     }
 
     /**
