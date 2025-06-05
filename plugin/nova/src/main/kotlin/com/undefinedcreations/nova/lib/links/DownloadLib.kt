@@ -69,13 +69,13 @@ object DownloadLib {
         downloadFile(folder, Repositories.BUNGEECORD_REPO, "Bungeecord.jar")
 
     /**
-     * This method is used to download Purper.
+     * This method is used to download Purpur.
      *
      * @param folder The folder to download the jar to
      * @param minecraftVersion The minecraft version target
      */
-    fun purper(folder: File, minecraftVersion: String): DownloadResult =
-        downloadFile(folder, "${Repositories.PURPUR_REPO}/$minecraftVersion/latest/download", "Purper.jar")
+    fun purpur(folder: File, minecraftVersion: String): DownloadResult =
+        downloadFile(folder, "${Repositories.PURPUR_REPO}/$minecraftVersion/latest/download", "Purpur.jar")
 
     /**
      * This method is used to download Pufferfish.

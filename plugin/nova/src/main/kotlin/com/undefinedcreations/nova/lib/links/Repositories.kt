@@ -18,12 +18,12 @@ object Repositories {
     const val UNDEFINEDCREATIONS_REPO = "https://repo.undefinedcreations.com/server/spigotmc"
 
     /**
-     * The md5 repository to download bungeecord
+     * The md5 repository to download Bungeecord
      */
     const val BUNGEECORD_REPO = "https://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/bootstrap/target/BungeeCord.jar"
 
     /**
-     * The Purper repository to download purper
+     * The Purpur repository to download Purpur
      */
     const val PURPUR_REPO = "https://api.purpurmc.org/v2/purpur"
 
