@@ -112,7 +112,7 @@ abstract class AbstractServer : JavaExec() {
      */
     private fun checkJavaVersion(minecraftVersion: String, javaVersion: JavaVersion) {
         try {
-            val uri = URI.create("thttps://hub.spigotmc.org/versions/$minecraftVersion.json").toURL()
+            val uri = URI.create("https://hub.spigotmc.org/versions/$minecraftVersion.json").toURL()
             val response = JsonParser.parseString(uri.readText()).asJsonObject
 
             val versionsArray = response["javaVersions"].asJsonArray

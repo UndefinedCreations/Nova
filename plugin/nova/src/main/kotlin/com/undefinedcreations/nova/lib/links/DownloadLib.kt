@@ -94,7 +94,7 @@ object DownloadLib {
         val json = JsonParser.parseString(result).asJsonObject
         val id = UUID.fromString(json["id"].asString)
         val files = json["files"].asJsonArray
-        val fileId = UUID.fromString(files.first().asJsonObject["id"].asString)
+        val fileId = UUID.fromString(files.first { "server" in it.asJsonObject["fileName"].asString }.asJsonObject["id"].asString)
 
         return downloadFile(folder, "${Repositories.ASP_REPO}/$id/download/$fileId", "AdvancedSlimePaper.jar")
     }
