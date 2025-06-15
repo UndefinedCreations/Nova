@@ -36,7 +36,7 @@ enum class ServerType(val loaderName: String, val proxy: Boolean) {
     /**
      * AdvancedSlimePaper server type, a fork of Paper.
      */
-    ASP("asp", false),
+    ADVANCED_SLIME_PAPER("asp", false),
 
     /**
      * BungeeCord proxy server type.
