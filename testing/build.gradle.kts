@@ -33,7 +33,7 @@ tasks {
         options.release.set(21)
     }
     runServer {
-        serverType(ServerType.ASP)
+        serverType(ServerType.ADVANCED_SLIME_PAPER)
         minecraftVersion("1.21.4")
         debugMessage(true)
         perVersionFolder(true)
