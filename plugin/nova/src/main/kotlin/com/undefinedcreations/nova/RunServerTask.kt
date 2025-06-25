@@ -149,7 +149,7 @@ abstract class RunServerTask : AbstractServer() {
      * This will run when the task is called
      */
     override fun exec() {
-        if (minecraftVersion == null) {
+        if (minecraftVersion == null && serverType != ServerType.CUSTOM) {
             val echoVersion = getEchoMinecraftVersion()
             if (echoVersion == null) {
                 logger.error("No minecraft version selected!")

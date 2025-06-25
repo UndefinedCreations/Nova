@@ -38,6 +38,8 @@ tasks {
         debugMessage(true)
         perVersionFolder(true)
         acceptMojangEula()
+
+        serverFolderName { "$buildFolder/${serverType.name.lowercase()}-{${minecraftVersion}}" }
     }
 }
 
