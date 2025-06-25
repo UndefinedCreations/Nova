@@ -72,6 +72,13 @@ abstract class AbstractServer : JavaExec() {
     fun serverFolderName(name: String) { runDir = File(project.layout.projectDirectory.asFile, name) }
 
     /**
+     * This option allowed you to set the folder where the server is running
+     *
+     * @param file The server folder file
+     */
+    fun serverFolder(file: File) { runDir = file }
+
+    /**
      * This option allows you to set what type of server you will be running.
      *
      * @param serverType The server type
