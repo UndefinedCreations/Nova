@@ -87,7 +87,7 @@ abstract class RunServerTask : AbstractServer() {
      * @param links The page links to download from
      * @param overwrite If it should overwrite every time
      */
-    fun plugins(links: List<String>, overwrite: Boolean) { downloads.addAll(links.map { Pair(it, overwrite) }) }
+    fun plugins(links: List<String>, overrite: Boolean) { downloads.addAll(links.map { Pair(it, overrite) }) }
 
     /**
      * This is an option to download plugin from an external website.
@@ -95,7 +95,7 @@ abstract class RunServerTask : AbstractServer() {
      * @param url The url to the page to down from
      * @param overwrite If it should overwrite the file everytime
      */
-    fun plugin(url: String, overwrite: Boolean = false) { downloads.add(Pair(url, overwrite)) }
+    fun plugin(url: String, overrite: Boolean = false) { downloads.add(Pair(url, overrite)) }
 
     /**
      * This is an option to copy a plugin from your disk
@@ -110,7 +110,7 @@ abstract class RunServerTask : AbstractServer() {
      * @param files A list of plugins to copy
      * @param overwrite If it should overwrite the files
      */
-    fun filePlugins(files: List<File>, overwrite: Boolean) { filePlugins.addAll(files.map { Pair(it, overwrite) }) }
+    fun filePlugins(files: List<File>, overrite: Boolean) { filePlugins.addAll(files.map { Pair(it, overrite) }) }
 
     /**
      * This is an option to copy a plugin from your disk
@@ -125,7 +125,7 @@ abstract class RunServerTask : AbstractServer() {
      * @param file The plugin to copy
      * @param overwrite If it should overwrite the plugin file
      */
-    fun filePlugin(file: File, overwrite: Boolean = false) { filePlugins.add(Pair(file, overwrite)) }
+    fun filePlugin(file: File, overrite: Boolean = false) { filePlugins.add(Pair(file, overrite)) }
 
     /**
      * This will accept the mojang eula for you when start
