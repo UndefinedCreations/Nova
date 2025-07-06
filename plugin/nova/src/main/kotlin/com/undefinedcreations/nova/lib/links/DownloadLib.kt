@@ -52,6 +52,7 @@ object DownloadLib {
     fun folia(folder: File, minecraftVersion: String) =
         downloadFromPaperMCRepo(folder, minecraftVersion, "folia")
 
+
     /**
      * This method is used to download Spigot.
      *
@@ -78,6 +79,23 @@ object DownloadLib {
      */
     fun purpur(folder: File, minecraftVersion: String): DownloadResult =
         downloadFile(folder, "${Repositories.PURPUR_REPO}/$minecraftVersion/latest/download", "Purpur.jar")
+
+    /**
+     * This method is used to download Leaf.
+     *
+     * @param folder The folder to download the jar to
+     * @param minecraftVersion The minecraft version target
+     */
+    fun leaf(folder: File, minecraftVersion: String): DownloadResult  {
+        val information = URI.create("${Repositories.LEAF_REPO}/versions/$minecraftVersion")
+        val input = information.toURL().readText()
+        val json = JsonParser.parseString(input)
+        val lastestBuild = json.asJsonObject.get("builds").asJsonArray.maxOf { it.asInt }
+
+        val fileName = "leaf-$minecraftVersion-$lastestBuild.jar"
+
+        return downloadFile(folder, "${Repositories.LEAF_REPO}/versions/$minecraftVersion/builds/$lastestBuild/downloads/$fileName", fileName)
+    }
 
     /**
      * This method is used to download AdvancedSlimePaper.

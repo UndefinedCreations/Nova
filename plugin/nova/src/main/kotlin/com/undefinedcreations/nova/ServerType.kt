@@ -59,6 +59,11 @@ enum class ServerType(val loaderName: String, val proxy: Boolean) {
     FOLIA("folia", false),
 
     /**
+     * Leaf server type, an server jar that forks multiple popular server jars.
+     */
+    LEAF("leaf", false),
+
+    /**
      * Custom server type.
      */
     CUSTOM("CUSTOM", false);
@@ -80,6 +85,7 @@ enum class ServerType(val loaderName: String, val proxy: Boolean) {
             WATERFALL -> DownloadLib.waterfall(directory, mcVersion)
             VELOCITY -> DownloadLib.velocity(directory, mcVersion)
             FOLIA -> DownloadLib.folia(directory, mcVersion)
+            LEAF -> DownloadLib.leaf(directory, mcVersion)
             CUSTOM -> null
         }
 
@@ -97,6 +103,7 @@ enum class ServerType(val loaderName: String, val proxy: Boolean) {
             WATERFALL -> VersionLib.waterfall()
             VELOCITY -> VersionLib.velocity()
             FOLIA -> VersionLib.folia()
+            LEAF -> VersionLib.leaf()
             CUSTOM -> listOf()
         }
 

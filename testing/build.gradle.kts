@@ -33,13 +33,9 @@ tasks {
         options.release.set(21)
     }
     runServer {
-        serverType(ServerType.ADVANCED_SLIME_PAPER)
+        serverType(ServerType.LEAF)
         minecraftVersion("1.21.4")
-        debugMessage(true)
-        perVersionFolder(true)
         acceptMojangEula()
-
-        serverFolderName { "$buildFolder/${serverType.name.lowercase()}-{${minecraftVersion}}" }
     }
 }
 

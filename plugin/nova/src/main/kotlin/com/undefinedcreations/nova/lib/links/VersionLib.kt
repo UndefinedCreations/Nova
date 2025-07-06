@@ -84,6 +84,18 @@ object VersionLib {
     }
 
     /**
+     * Used to get a list of all supported for `Leaf`.
+     *
+     * @return A list of all supported versions for `Leaf`.
+     */
+    fun leaf(): List<String> {
+        val url = URI.create(Repositories.LEAF_REPO)
+        val versions: MutableSet<String> = mutableSetOf()
+        for (element in JsonParser.parseString(url.toURL().readText()).asJsonObject.get("versions").asJsonArray) versions.add(element.asString)
+        return versions.toList()
+    }
+
+    /**
      * Used to get a list of all supported for `Pufferfish`.
      *
      * @return A list of all supported versions for `Pufferfish`.

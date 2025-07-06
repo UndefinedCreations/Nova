@@ -33,9 +33,14 @@ object Repositories {
     const val PUFFERFISH_REPO = "https://ci.pufferfish.host/job"
 
     /**
-     * The AdvancedSlimePaper repository to download pufferfish
+     * The AdvancedSlimePaper repository to download asp
      */
     const val ASP_REPO = "https://api.infernalsuite.com/v1/projects/asp"
+
+    /**
+     * The Leaf repository to download leaf
+     */
+    const val LEAF_REPO = "https://api.leafmc.one/v2/projects/leaf"
 
     /**
      * The spigotmc repository to download plugins from `spigotmc.org`
