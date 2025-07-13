@@ -130,8 +130,8 @@ abstract class AbstractServer : JavaExec() {
             if (classFileMajorVersion in minJava..maxJava) return
 
             throw UnsupportedJavaVersionException(minJava, maxJava)
-        } catch (e: URISyntaxException) {
-            logger.error("Could not find $minecraftVersion.", e)
+        } catch (e: Exception) {
+            logger.warn("Exception when getting the java version", e)
         }
     }
 
